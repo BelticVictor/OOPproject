@@ -5,6 +5,10 @@ using namespace std;
 
 class Ticket
 {
+	const int ID;
+	string type;
+	static int numb_ticket_bought;
 
-	bool isVIP; // false for normal true for VIP
+public:
+
 };
