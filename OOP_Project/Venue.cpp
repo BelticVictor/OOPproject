@@ -26,8 +26,8 @@ public:
 		this->maxSeats = 0;
 		this->rows = 0;
 
-		this->name = new char[strlen("John Doe") + 1];
-		strcpy_s(this->name, strlen("John Doe") + 1, "John Doe");
+		this->name = new char[strlen("Venue") + 1];
+		strcpy_s(this->name, strlen("Venue") + 1, "Venue");
 
 		this->seats_per_row = new int[1];
 		this->seats_per_row[0] = 0;
