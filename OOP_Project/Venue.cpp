@@ -82,5 +82,5 @@ public:
 		delete[] this->name;
 		delete[] this->seats_per_row;
 	}
-
+	//add a function that checks that row*seats per row < maxSeats
 };
