@@ -1,3 +1,4 @@
+#pragma once
 #include <iostream>
 #include <string>
 
@@ -10,6 +11,8 @@ class Ticket
 	static int tickets_bought;
 
 public:
+
+
 	//constructor
 
 	Ticket(int type) : ID(rand()) {
@@ -61,3 +64,4 @@ public:
 		}
 	}
 };
+int Ticket::tickets_bought = 0;
