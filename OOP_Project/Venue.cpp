@@ -12,15 +12,8 @@ class Venue {
 
 public:
 
-	//constructor
-
-	Venue(char* _name, int _maxSeats, int _rows, int* _seats_per_row) : maxSeats(_maxSeats) {
-		this->set_name(_name);
-		this->set_rows(_rows, _seats_per_row);
-	}
-
 	//default constructor
-	
+
 	Venue() {
 		this->maxSeats = 0;
 		this->rows = 0;
@@ -30,6 +23,13 @@ public:
 
 		this->seats_per_row = new int[1];
 		this->seats_per_row[0] = 0;
+	}
+
+	//constructor
+
+	Venue(char* _name, int _maxSeats, int _rows, int* _seats_per_row) : maxSeats(_maxSeats) {
+		this->set_name(_name);
+		this->set_rows(_rows, _seats_per_row);
 	}
 
 	//copy constructor

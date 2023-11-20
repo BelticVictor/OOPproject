@@ -12,18 +12,17 @@ class Ticket
 
 public:
 
+	//default constructor
+
+	Ticket() : ID(rand()) {
+		this->type = 0;
+		tickets_bought++;
+	}
 
 	//constructor
 
 	Ticket(int type) : ID(rand()) {
 		this->type = type;
-		tickets_bought++;
-	}
-
-	//default constructor
-
-	Ticket() : ID(rand()) {
-		this->type = 0;
 		tickets_bought++;
 	}
 

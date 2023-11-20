@@ -9,13 +9,6 @@ class Event {
 	string finish_time; //----||---- finishes ----||----
 	string date;
 public:
-	//constructor
-
-	Event(string name, string start_time, string finish_time, string date) :name(name), start_time(start_time), finish_time(finish_time), date(date) {}
-
-	//copy constructor
-
-	Event(const Event& copy) : name(copy.name), start_time(copy.start_time), finish_time(copy.finish_time), date(copy.date) {}
 
 	//default consturctor
 
@@ -25,6 +18,14 @@ public:
 		this->finish_time = "00:00";
 		this->date = "01-01-2003";
 	}
+
+	//constructor
+
+	Event(string name, string start_time, string finish_time, string date) :name(name), start_time(start_time), finish_time(finish_time), date(date) {}
+
+	//copy constructor
+
+	Event(const Event& copy) : name(copy.name), start_time(copy.start_time), finish_time(copy.finish_time), date(copy.date) {}
 
 	//setters
 
