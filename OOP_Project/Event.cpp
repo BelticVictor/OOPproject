@@ -56,7 +56,7 @@ public:
 	//generic methods
 
 	int convertHour(string time) {
-		int hour, minute;
+		int hour = 0;
 		for (int i = 0; i < 2; i++) {
 				hour = hour * 10 + time[i];
 		}
@@ -64,7 +64,7 @@ public:
 	}
 
 	int convertMinute(string time) {
-		int hour, minute;
+		int minute = 0;
 		for (int i = 3; i < 5; i++) {
 				minute = minute * 10 + time[i];
 		}

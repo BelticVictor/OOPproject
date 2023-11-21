@@ -17,19 +17,27 @@ public:
 	Venue() {
 		this->maxSeats = 0;
 		this->rows = 0;
-
-		this->name = new char[strlen("Venue") + 1];
-		strcpy_s(this->name, strlen("Venue") + 1, "Venue");
-
-		this->seats_per_row = new int[1];
-		this->seats_per_row[0] = 0;
+		this->name = nullptr;
+		this->seats_per_row = nullptr;
 	}
 
 	//constructor
 
-	Venue(char* _name, int _maxSeats, int _rows, int* _seats_per_row) : maxSeats(_maxSeats) {
-		this->set_name(_name);
-		this->set_rows(_rows, _seats_per_row);
+	Venue(const char* _name, int _maxSeats, int _rows, const int* _seats_per_row) : maxSeats(_maxSeats), rows(_rows) {
+		if (_name != nullptr) {
+			this->name = new char[strlen(_name) + 1];
+			strcpy_s(this->name, strlen(_name) + 1, _name);
+		}
+		else
+			this->name = nullptr;
+
+		if (_rows > 0 && _seats_per_row != nullptr) {
+			this->rows = _rows;
+			this->seats_per_row = new int[_rows + 1];
+			for (int i = 0; i < _rows; i++) {
+				this->seats_per_row[i] = _seats_per_row[i];
+			}
+		}
 	}
 
 	//copy constructor

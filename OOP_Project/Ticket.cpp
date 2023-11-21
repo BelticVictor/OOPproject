@@ -7,7 +7,7 @@ using namespace std;
 class Ticket
 {
 	const int ID;
-	int type; // 0 for normal, 1 for VIP
+	int type; // 0 for normal, 1 for VIP,2+ for smthg else if added
 	static int tickets_bought;
 	int price;
 	static int profit;
@@ -18,6 +18,7 @@ public:
 
 	Ticket() : ID(rand()) {
 		this->type = 0;
+		this->price = 0;
 		tickets_bought++;
 	}
 
