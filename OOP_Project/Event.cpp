@@ -46,12 +46,35 @@ public:
 			this->finish_time = _finish_time;
 	}
 
-
 	//getters
 
 	string get_name() { return this->name; }
 	string get_date() { return this->date; }
 	string get_start_time() { return this->start_time; }
 	string get_finish_time() { return this->finish_time; }
+
+	//generic methods
+
+	int convertHour(string time) {
+		int hour, minute;
+		for (int i = 0; i < 2; i++) {
+				hour = hour * 10 + time[i];
+		}
+		return hour;
+	}
+
+	int convertMinute(string time) {
+		int hour, minute;
+		for (int i = 3; i < 5; i++) {
+				minute = minute * 10 + time[i];
+		}
+		return minute;
+	}
+
+	int duration() {
+		int duration;
+		duration = (convertHour(this->finish_time) * 60 + convertMinute(this->finish_time)) - (convertHour(this->start_time) * 60 + convertMinute(this->start_time));
+		return duration;
+	}
 
 };

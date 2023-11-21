@@ -81,5 +81,25 @@ public:
 		delete[] this->name;
 		delete[] this->seats_per_row;
 	}
-	//add a function that checks that row*seats per row < maxSeats
+
+	//generic method
+
+	bool maxSeatsCheck() { //0 for too many seats, 1 for under the max amount
+		int Seats = 0;
+		for (int i = 0; i < this->rows; i++) {
+			Seats = Seats + this->seats_per_row[i];
+		}
+		if (Seats > this->maxSeats) {
+			cout << "Error, too many seats, exceeds the maximum amount";
+			return 0;
+		}
+		else
+			return 1;
+	}
+
+	void FixMaxSeats() {
+		this->maxSeats = 0;
+		for (int i = 0; i < this->rows; i++)
+			this->maxSeats = this->maxSeats + this->seats_per_row[i];
+	}
 };

@@ -9,6 +9,8 @@ class Ticket
 	const int ID;
 	int type; // 0 for normal, 1 for VIP
 	static int tickets_bought;
+	int price;
+	static int profit;
 
 public:
 
@@ -21,14 +23,15 @@ public:
 
 	//constructor
 
-	Ticket(int type) : ID(rand()) {
+	Ticket(int type,int _price) : ID(rand()) {
 		this->type = type;
+		this->price = _price;
 		tickets_bought++;
 	}
 
 	//copy constructor
 
-	Ticket(const Ticket& copy) : ID(rand()) {
+	Ticket(const Ticket& copy) : ID(rand()), price(copy.price) {
 		this->type = copy.type;
 		tickets_bought++;
 	}
@@ -48,6 +51,8 @@ public:
 
 	int get_ID() { return (int)this->ID; }
 
+	int get_price() { return (int)this->price; }
+
 	int get_tickets_bought(){ return (int)tickets_bought; }
 
 	//setter
@@ -62,5 +67,26 @@ public:
 			break;
 		}
 	}
+
+	//generic methods
+
+	void change_type() {
+		switch (this->type) {
+		case(0):
+			this->type = 1;
+			break;
+		case(1):
+			this->type = 0;
+			break;
+		}
+	}
+	//WIP
+	static int Profit() {
+		int profit=0;
+		//profit = tickets_bought * price;
+		return profit;
+	}
+
 };
 int Ticket::tickets_bought = 0;
+int Ticket::profit = 0;
