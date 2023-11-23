@@ -58,14 +58,7 @@ public:
 	//setter
 
 	void set_type(int _type) {
-		switch (_type) {
-		case(0):
 			this->type = _type;
-			break;
-		case(1):
-			this->type = _type;
-			break;
-		}
 	}
 
 	//generic methods

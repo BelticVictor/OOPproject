@@ -16,7 +16,7 @@ public:
 	Ticket_Manager(const Venue& _Location, const Event& event) : Location(_Location), event(event) {}
 
 	void generateTickets(int _type, int quantity) {
-		this->tickets = new Ticket[quantity + 1];
+		this->tickets = new Ticket[quantity];
 		for(int i=0; i<quantity;i++)
 			this->tickets[i].set_type(_type);
 	}
