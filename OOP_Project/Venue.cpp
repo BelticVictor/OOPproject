@@ -8,7 +8,8 @@ class Venue {
 	int maxSeats;
 	int rows;
 	int* seats_per_row=nullptr; //seats_per_row[i]=number of seats on row i
-	//dont forget to add zones
+	//maybe add zones
+	
 
 public:
 
@@ -83,13 +84,6 @@ public:
 	int get_rows() { return this->rows; }
 	int* get_seats_per_row() { return this->seats_per_row; }
 
-	//destructor
-
-	~Venue() {
-		delete[] this->name;
-		delete[] this->seats_per_row;
-	}
-
 	//generic method
 
 	bool maxSeatsCheck() { //0 for too many seats, 1 for under the max amount
@@ -110,4 +104,17 @@ public:
 		for (int i = 0; i < this->rows; i++)
 			this->maxSeats = this->maxSeats + this->seats_per_row[i];
 	}
+
+	int operator[](int pos) { return this->seats_per_row[pos]; }
+
+	//destructor
+
+	~Venue() {
+		delete[] this->name;
+		delete[] this->seats_per_row;
+	}
+
+	friend ostream& operator<<(ostream& console, Venue& s);
+	//friend void operator>>(istream& console, Venue& s);
 };
+

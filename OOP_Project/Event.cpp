@@ -77,4 +77,6 @@ public:
 		return duration;
 	}
 
+	friend ostream& operator<<(ostream& console, Event& s);
+	//friend void operator>>(istream& console, Event& s);
 };

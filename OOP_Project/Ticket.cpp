@@ -10,7 +10,6 @@ class Ticket
 	int type; // 0 for normal, 1 for VIP,2+ for smthg else if added
 	static int tickets_bought;
 	int price;
-	static int profit;
 
 public:
 
@@ -81,13 +80,11 @@ public:
 			break;
 		}
 	}
-	//WIP
-	static int Profit() {
-		int profit=0;
-		//profit = tickets_bought * price;
-		return profit;
+
+	static void IncreaseTicketsBought(int amount) { 
+		tickets_bought += amount;
 	}
 
+	friend ostream& operator<<(ostream& console, Ticket& s);
+	//friend void operator>>(istream& console, Ticket& s);
 };
-int Ticket::tickets_bought = 0;
-int Ticket::profit = 0;
