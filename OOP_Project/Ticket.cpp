@@ -9,7 +9,7 @@ class Ticket
 	const int ID;
 	int type; // 0 for normal, 1 for VIP,2+ for smthg else if added
 	static int tickets_bought;
-	int price;
+	//implement prices at a later date
 
 public:
 
@@ -17,7 +17,6 @@ public:
 
 	Ticket() : ID(rand()) {
 		this->type = 0;
-		this->price = 0;
 		tickets_bought++;
 	}
 
@@ -25,13 +24,12 @@ public:
 
 	Ticket(int type,int _price) : ID(rand()) {
 		this->type = type;
-		this->price = _price;
 		tickets_bought++;
 	}
 
 	//copy constructor
 
-	Ticket(const Ticket& copy) : ID(rand()), price(copy.price) {
+	Ticket(const Ticket& copy) : ID(copy.ID) {
 		this->type = copy.type;
 		tickets_bought++;
 	}
@@ -51,14 +49,16 @@ public:
 
 	int get_ID() { return (int)this->ID; }
 
-	int get_price() { return (int)this->price; }
-
 	int get_tickets_bought(){ return (int)tickets_bought; }
 
 	//setter
 
 	void set_type(int _type) {
 			this->type = _type;
+	}
+
+	void set_tickets_bought(int quantity) {
+		this->tickets_bought = quantity;
 	}
 
 	//generic methods
@@ -76,6 +76,12 @@ public:
 
 	static void IncreaseTicketsBought(int amount) { 
 		tickets_bought += amount;
+	}
+
+	//overloads
+
+	int returnType() {
+		return this->type;
 	}
 
 	friend ostream& operator<<(ostream& console, Ticket& s);

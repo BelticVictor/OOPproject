@@ -34,8 +34,6 @@ ostream& operator<<(ostream& console, Event& e) {
 ostream& operator<<(ostream& console, Ticket& t) {
     console << endl << "The ticket ID is " << t.get_ID();
 
-    console << endl << "It costed " << t.get_price();
-
     console << endl << "It's type is " << t.get_type();
 
     //console << endl << "The total number of tickets bought is " << t.get_tickets_bought() - 1;
@@ -50,7 +48,8 @@ ostream& operator<<(ostream& console, Ticket_Manager& t) {
 
     for (int i = 0; i < t.tickets->get_tickets_bought(); i++)
         cout << endl << t.tickets[i];
-    console << endl << "The total number of tickets bought is " << t.tickets->get_tickets_bought() - 1;
+
+    console << endl <<endl << "The total number of tickets bought is " << t.tickets->get_tickets_bought() - 1 <<endl;
 
     return console;
 }
@@ -63,9 +62,8 @@ int main() {
     Event event("Concert","18:30", "19:30", "2023-11-16");
     Ticket_Manager ticketManager(location, event);
     ticketManager.generateTickets(0, 2);
-    ticketManager.generateTickets(0, 3);
+    ticketManager.generateTickets(1, 3);
     cout << ticketManager;
     //cout << location;
     //cout << event;
-    //cout << ticketManager;
 }
