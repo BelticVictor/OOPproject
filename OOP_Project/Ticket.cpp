@@ -85,5 +85,5 @@ public:
 	}
 
 	friend ostream& operator<<(ostream& console, Ticket& s);
-	//friend void operator>>(istream& console, Ticket& s);
+	friend istream& operator>>(istream& console, Ticket& s);
 };

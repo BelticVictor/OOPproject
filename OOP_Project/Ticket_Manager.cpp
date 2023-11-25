@@ -11,8 +11,12 @@ class Ticket_Manager { //has all the data for a specified eveniment
 	Venue Location;
 	Event event;
 	Ticket* tickets=nullptr;
+	int counter;
+
 public:
 	//constructor
+	Ticket_Manager() {}
+
 	Ticket_Manager(const Venue& _Location, const Event& event) : Location(_Location), event(event) {}
 
 	void generateTickets(int _type, int quantity) {
@@ -20,6 +24,7 @@ public:
 			this->tickets = new Ticket[quantity];
 			for (int i = 0; i < quantity; i++)
 				this->tickets[i].set_type(_type);
+			counter = quantity;
 		}
 		else {
 			int quan = quantity + tickets->get_tickets_bought();
@@ -34,6 +39,7 @@ public:
 			for (int i = initialTCount; i < quan; i++)
 				this->tickets[i].set_type(_type);
 			tickets->set_tickets_bought(quan);
+			counter = quan;
 		}
 	}
 
@@ -48,5 +54,5 @@ public:
 	//set it up so that seats create a matrix of seats which people can pick out of
 	//take example and add method so it shows up the matrix of all seats when selecting a specific seat
 	
-	//friend void operator>>(istream& console, Ticket_Manager& s);
+	friend istream& operator>>(istream& console, Ticket_Manager& s);
 };

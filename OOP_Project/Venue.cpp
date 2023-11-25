@@ -115,6 +115,7 @@ public:
 	}
 
 	friend ostream& operator<<(ostream& console, Venue& s);
-	//friend void operator>>(istream& console, Venue& s);
+
+	friend istream& operator>>(istream& console, Venue& v);
 };
 
