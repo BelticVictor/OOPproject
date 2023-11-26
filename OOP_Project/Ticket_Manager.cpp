@@ -11,13 +11,15 @@ class Ticket_Manager { //has all the data for a specified eveniment
 	Venue Location;
 	Event event;
 	Ticket* tickets=nullptr;
-	int counter;
+	int counter = 0;
 
 public:
 	//constructor
 	Ticket_Manager() {}
 
 	Ticket_Manager(const Venue& _Location, const Event& event) : Location(_Location), event(event) {}
+
+	//generic methods
 
 	void generateTickets(int _type, int quantity) {
 		if (this->tickets == nullptr) {
@@ -44,10 +46,25 @@ public:
 	}
 
 	bool checkTicketOverflow() {
-		if (this->tickets[0].get_tickets_bought() > this->Location.get_maxSeats())
+		if (this->counter > this->Location.get_maxSeats())
 			return true;  //there is an overflow
 		else
 			return false;
+	}
+
+	double profit(Ticket* t) {
+		if (counter > 0 && t->get_price() > 0) {
+			double profit = t->get_price() * counter;
+		}
+	}
+
+	static double totalProfit(Ticket_Manager t) {
+		if (t.counter > 0 && t.tickets->get_price() > 0) {
+			double profit = t.tickets->get_tickets_bought() * t.tickets->get_price();
+			return profit;
+		}
+		else
+			return 0;
 	}
 
 	friend ostream& operator<<(ostream& console, Ticket_Manager& s);

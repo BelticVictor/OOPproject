@@ -74,7 +74,7 @@ public:
 			for (int i = 0; i < _rows; i++) {			
 				this->seats_per_row[i] = _seats_per_row[i];
 		    }
-	    }
+		}
 	}
 
 	//getters
@@ -105,7 +105,18 @@ public:
 			this->maxSeats = this->maxSeats + this->seats_per_row[i];
 	}
 
-	int operator[](int pos) { return this->seats_per_row[pos]; }
+	//overloads
+
+	int operator[](int pos) { 
+		if (pos >= 0 && pos < this->rows) {
+			return this->seats_per_row[pos];
+		}
+		throw exception("invalid position");
+	}
+
+	explicit operator string() {
+		return (string)this->name;
+	}
 
 	//destructor
 

@@ -132,8 +132,10 @@ int main() {
     Venue location((char*)"Backyard", 100, 2, seats);
     Event event("Concert","18:30", "19:30", "2023-11-16");
     Ticket_Manager ticketManager(location, event);
+
     ticketManager.generateTickets(0, 2);
     ticketManager.generateTickets(1, 3);
+
     Ticket_Manager ticketmanager1;
     cin >> ticketmanager1;
     cout << ticketmanager1;

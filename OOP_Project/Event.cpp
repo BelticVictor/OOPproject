@@ -58,7 +58,7 @@ public:
 	int convertHour(string time) {
 		int hour = 0;
 		for (int i = 0; i < 2; i++) {
-				hour = hour * 10 + time[i];
+				hour = hour * 10 + (time[i] - '0');
 		}
 		return hour;
 	}
@@ -66,7 +66,7 @@ public:
 	int convertMinute(string time) {
 		int minute = 0;
 		for (int i = 3; i < 5; i++) {
-				minute = minute * 10 + time[i];
+				minute = minute * 10 + (time[i] - '0');
 		}
 		return minute;
 	}
@@ -75,6 +75,56 @@ public:
 		int duration;
 		duration = (convertHour(this->finish_time) * 60 + convertMinute(this->finish_time)) - (convertHour(this->start_time) * 60 + convertMinute(this->start_time));
 		return duration;
+	}
+
+	//overloads
+
+	void operator+(int time) {
+		int start_hour = convertHour(this->start_time) + time;
+		for (int i = 0; i < 2; i++) {
+			if (i == 0)
+				this->start_time[i] = (start_hour / 10) + '0';
+			else
+				this->start_time[i] = (start_hour % 10) + '0';
+		}
+		int finish_hour = convertHour(this->finish_time) + time;
+		for (int i = 0; i < 2; i++) {
+			if (i == 0)
+				this->finish_time[i] = (finish_hour / 10) + '0';
+			else
+				this->finish_time[i] = (finish_hour % 10) + '0';
+		}
+	}
+	bool operator>(string time) {
+		int timeHour = convertHour(this->start_time);
+		int timeMinute = convertMinute(this->start_time);
+		int compareHour = convertHour(time);
+		int compareMinute = convertMinute(time);
+		if (timeHour == compareHour)
+			if (timeMinute > compareMinute)
+				return true;
+			else
+				return false;
+		else if (timeHour > compareHour)
+			return true;
+		else
+			return false;
+	}
+
+	bool operator<(string time){
+		int timeHour = convertHour(this->start_time);
+		int timeMinute = convertMinute(this->start_time);
+		int compareHour = convertHour(time);
+		int compareMinute = convertMinute(time);
+		if (timeHour == compareHour)
+			if (timeMinute > compareMinute)
+				return false;
+			else
+				return true;
+		else if (timeHour > compareHour)
+			return false;
+		else
+			return true;
 	}
 
 	friend ostream& operator<<(ostream& console, Event& s);
