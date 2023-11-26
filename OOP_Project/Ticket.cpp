@@ -7,7 +7,7 @@ using namespace std;
 class Ticket
 {
 	const int ID;
-	int type; // 0 for normal, 1 for VIP,2+ for smthg else if added
+	int type; // 0 for normal, 1 for VIP,2+ for smthg else if needed
 	static int tickets_bought;
 	int price;
 
@@ -57,15 +57,23 @@ public:
 	//setter
 
 	int set_price(int _price) {
-		this->price = price;
+		if (_price > 0) {
+			this->price = price;
+		}
+		throw invalid_argument("The price cant be 0");
 	}
 
 	void set_type(int _type) {
+		if (_type < 2) {
 			this->type = _type;
+		} throw invalid_argument("The type can only be 0 or 1");
 	}
 
 	void set_tickets_bought(int quantity) {
-		this->tickets_bought = quantity;
+		if (quantity > 0) {
+			this->tickets_bought = quantity;
+		}
+		throw invalid_argument("The number of tickets bought cant be 0");
 	}
 
 	//generic methods

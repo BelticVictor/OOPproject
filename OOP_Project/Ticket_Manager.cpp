@@ -30,18 +30,27 @@ public:
 		}
 		else {
 			int quan = quantity + tickets->get_tickets_bought();
+
 			int initialTCount = tickets->get_tickets_bought();
+
 			int* old_ticket_type = new int[initialTCount];
+
 			for (int i = 0; i < initialTCount; i++)
 				old_ticket_type[i]= this->tickets[i].returnType();
+
 			delete[] this->tickets;
 			this->tickets = new Ticket[quan];
+
 			for (int i = 0; i < initialTCount; i++)
 				this->tickets[i].set_type(old_ticket_type[i]);
+
 			for (int i = initialTCount; i < quan; i++)
 				this->tickets[i].set_type(_type);
+
 			tickets->set_tickets_bought(quan);
 			counter = quan;
+
+			delete[] old_ticket_type;
 		}
 	}
 

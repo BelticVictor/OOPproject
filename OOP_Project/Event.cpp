@@ -30,20 +30,26 @@ public:
 	//setters
 
 	void set_name(string _name) {
-		if(_name.empty())
+		if (_name.empty()) {
 			this->name = _name;
+		}
+		throw invalid_argument("The name is empty");
 	}
 
 	void set_date(string _date) {
-		if (_date.empty())
+		if (_date.empty()) {
 			this->date = _date;
+		}
+		throw invalid_argument("The date is empty");
 	}
 
 	void set_time(string _start_time, string _finish_time) {
-		if (_start_time.empty())
+		if (_start_time.empty()) {
 			this->start_time = _start_time;
-		if (_finish_time.empty())
+		}throw invalid_argument("The time is empty");
+		if (_finish_time.empty()) {
 			this->finish_time = _finish_time;
+		}throw invalid_argument("The time is empty");
 	}
 
 	//getters

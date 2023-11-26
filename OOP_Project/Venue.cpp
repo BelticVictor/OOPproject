@@ -56,8 +56,10 @@ public:
 	//setters
 
 	void set_maxSeats(int _maxSeats) {
-		if(_maxSeats > 0)
+		if (_maxSeats > 0) {
 			this->maxSeats = _maxSeats;
+		}
+		throw invalid_argument("The maximum number of seats cant be 0");
 	}
 
 	void set_name(char* _name) {
@@ -65,6 +67,7 @@ public:
 			this->name = new char[strlen(_name) + 1];		
 			strcpy_s(this->name, strlen(_name) + 1, _name);
 	    }
+		throw invalid_argument("The name is empty");
 	}
 
 	void set_rows(int _rows, int* _seats_per_row) {
@@ -75,6 +78,7 @@ public:
 				this->seats_per_row[i] = _seats_per_row[i];
 		    }
 		}
+		throw invalid_argument("The rows count cant be 0");
 	}
 
 	//getters
