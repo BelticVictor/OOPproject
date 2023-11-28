@@ -136,7 +136,32 @@ int main() {
     ticketManager.generateTickets(0, 2);
     ticketManager.generateTickets(1, 3);
 
-    Ticket_Manager ticketmanager1;
-    cin >> ticketmanager1;
-    cout << ticketmanager1;
+    int stop = 1;
+    while (stop != 0) {
+        cout << endl << "Input 0 to exit the program";
+        cout << endl << "Input 1 to display data";
+        cout << endl << "Input 2 to buy tickets";
+        cout << endl << "Input command :";
+        cin >> stop;
+        switch (stop) {
+        case (1):
+            cout << ticketManager;
+            break;
+        case(2):
+            cout << endl << "Input how many tickets do you wish to buy: ";
+            int quan;
+            cin >> quan;
+            cout << endl << "Input what kind of ticket you wish to buy(0 for Normal, 1 for VIP)";
+            int type;
+            cin >> type;
+            while (type >= 2) {
+                cout << endl << "Error: Input not 0 or 1. Retry again:";
+                cin >> type;
+            }
+            ticketManager.generateTickets(type, quan);
+            break;
+        default:
+            break;
+        }
+    }
 }
