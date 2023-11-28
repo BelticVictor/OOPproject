@@ -104,7 +104,7 @@ ostream& operator<<(ostream& console, Ticket_Manager& t) {
 
     console << endl << "The number of tickets sold in this eveniment is: " << t.counter;
 
-    console << endl <<endl << "The total number of tickets sold is " << t.tickets->get_tickets_bought() - 1 <<endl;
+  //  console << endl <<endl << "The total number of tickets sold is " << t.tickets->get_tickets_bought() <<endl;
 
     cout << endl;
     return console;
