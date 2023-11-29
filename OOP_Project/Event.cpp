@@ -33,21 +33,29 @@ public:
 		if (_name.empty()) {
 			this->name = _name;
 		}
+		else
+			throw invalid_argument("Invalid name");
 	}
 
 	void set_date(string _date) {
 		if (_date.empty()) {
 			this->date = _date;
 		}
+		else
+			throw invalid_argument("Invalid date");
 	}
 
 	void set_time(string _start_time, string _finish_time) {
 		if (_start_time.empty()) {
 			this->start_time = _start_time;
 		}
+		else
+			throw invalid_argument("Invalid time");
 		if (_finish_time.empty()) {
 			this->finish_time = _finish_time;
 		}
+		else
+			throw invalid_argument("Invalid time");
 	}
 
 	//getters

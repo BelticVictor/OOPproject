@@ -60,18 +60,24 @@ public:
 		if (_price > 0) {
 			this->price = price;
 		}
+		else
+			throw invalid_argument("Invalid price");
 	}
 
 	void set_type(int _type) {
 		if (_type < 2) {
 			this->type = _type;
 		}
+		else
+			throw invalid_argument("Invalid type");
 	}
 
 	void set_tickets_bought(int quantity) {
 		if (quantity > 0) {
 			this->tickets_bought = quantity;
 		}
+		else
+			throw invalid_argument("Invalid number of tickets bought");
 	}
 
 	//generic methods
