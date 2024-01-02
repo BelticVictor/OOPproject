@@ -23,8 +23,16 @@ public:
 
 	//constructor
 
-	Ticket(int type,int _price) : ID(rand()),price(_price) {
+	Ticket(int type) : ID(rand()) {
 		this->type = type;
+		switch (this->type) {
+		case(0):
+			this->price = 10;
+			break;
+		case(1):
+			this->price = 15;
+			break;
+		}
 		tickets_bought++;
 	}
 
@@ -46,22 +54,22 @@ public:
 			return "VIP";
 			break;
 		}
+		return "error";
 	}
 
 	int get_price() { return this->price; }
 
-	int get_ID() { return (int)this->ID; }
+	int get_ID() { return this->ID; }
 
-	int get_tickets_bought(){ return (int)tickets_bought; }
+	int get_tickets_bought(){ return tickets_bought; }
 
 	//setter
 
 	int set_price(int _price) {
-		if (_price > 0) {
-			this->price = price;
-		}
-		else
+		if (_price <= 0)
 			throw invalid_argument("Invalid price");
+	
+		this->price = price;
 	}
 
 	void set_type(int _type) {
@@ -109,6 +117,13 @@ public:
 		return *this;
 	}
 
+	Ticket operator++(int)
+	{
+		Ticket copy = *this;
+		this->tickets_bought++;
+		return copy;
+	}
+
 	Ticket operator--()
 	{
 		this->tickets_bought--;
@@ -125,6 +140,13 @@ public:
 			break;
 		}
 	}
+
+	/*Ticket& operator=(const Ticket& tix) {
+		this->type = tix.type;
+		this->price = tix.price;
+
+		return *this;
+	}*/
 
 	friend ostream& operator<<(ostream& console, Ticket& s);
 	friend istream& operator>>(istream& console, Ticket& s);

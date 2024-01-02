@@ -99,8 +99,9 @@ ostream& operator<<(ostream& console, Ticket_Manager& t) {
 
     console << endl << t.event;
 
-    for (int i = 0; i < t.counter; i++)
-        cout << endl << t.tickets[i];
+    if (t.counter > 0)
+        for (int i = 0; i < t.counter; i++)
+            cout << endl << t.tickets[i];
 
     console << endl << "The number of tickets sold in this eveniment is: " << t.counter;
 
@@ -114,7 +115,7 @@ istream& operator>>(istream& console, Ticket_Manager& Tix) {
     console >> Tix.Location;
     console >> Tix.event;
     int quan, type;
-    cout << endl << "Enter the type of tickets you want to buy(0 for Normal, 1 for VIP): ";
+    cout << endl << "Enter the type of tickets you want to buy (0 for Normal, 1 for VIP): ";
     cin >> type;
     cout << endl << "Enter the quantity of tickets you want to buy): ";
     cin >> quan;
@@ -127,41 +128,62 @@ istream& operator>>(istream& console, Ticket_Manager& Tix) {
 int Ticket::tickets_bought = 0;
 
 int main() {
-
     int seats[2] = {10, 10};
     Venue location((char*)"Backyard", 100, 2, seats);
     Event event("Concert","18:30", "19:30", "2023-11-16");
-    Ticket_Manager ticketManager(location, event);
 
-    ticketManager.generateTickets(0, 2);
-    ticketManager.generateTickets(1, 3);
+    Ticket_Manager* ticketM; //every Eveniment will be stored here
+    Ticket_Manager copy; //used in dynamic allocation to store data before deleting
 
-    int stop = 1;
-    while (stop != 0) {
-        cout << endl << "Input 0 to exit the program";
-        cout << endl << "Input 1 to display data";
-        cout << endl << "Input 2 to buy tickets";
-        cout << endl << "Input command :";
-        cin >> stop;
-        switch (stop) {
-        case (1):
-            cout << ticketManager;
-            break;
-        case(2):
-            cout << endl << "Input how many tickets do you wish to buy: ";
-            int quan;
-            cin >> quan;
-            cout << endl << "Input what kind of ticket you wish to buy(0 for Normal, 1 for VIP)";
-            int type;
-            cin >> type;
-            while (type >= 2) {
-                cout << endl << "Error: Input not 0 or 1. Retry again:";
+    ticketM = new Ticket_Manager[1];
+
+    ticketM[0].set_location(location);
+    ticketM[0].set_event(event);
+
+    ticketM[0].generateTickets(0, 2);
+    ticketM[0].generateTickets(1, 3);
+    int stop;
+    cout << endl << "If you wish to read data from a text file, type 0. Else, if you wish to use the menu, press 1: ";
+    cin >> stop;
+    cout << endl << endl;
+
+    if (stop == 0) {
+
+    }
+    else {
+
+        stop = 1; //while testing the menu
+        while (stop != 0) {
+            cout << endl << "Input 0 to exit the program";
+            cout << endl << "Input 1 to display data";
+            cout << endl << "Input 2 to buy tickets";
+            cout << endl << "Input 3 to add a new event"; //to implement
+            cout << endl << "Input 4 to show all events"; //to implement
+            cout << endl << "Input 5 to show availible seats for the current event"; //to implement
+            cout << endl << "Input command : ";
+            cin >> stop;
+            switch (stop) {
+            case (1):
+                for (int i = 0; i < 1; i++)
+                    cout << ticketM[i];
+                break;
+            case(2):
+                cout << endl << "Input how many tickets do you wish to buy: ";
+                int quan;
+                cin >> quan;
+                cout << endl << "Input what kind of ticket you wish to buy (0 for Normal, 1 for VIP)";
+                int type;
                 cin >> type;
+                while (type >= 2) {
+                    cout << endl << "Error: Input not 0 or 1. Retry again:";
+                    cin >> type;
+                }
+                ticketM[0].generateTickets(type, quan);
+                break;
+            default:
+                break;
             }
-            ticketManager.generateTickets(type, quan);
-            break;
-        default:
-            break;
         }
     }
+    delete[] ticketM;
 }

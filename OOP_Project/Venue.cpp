@@ -132,6 +132,24 @@ public:
 		delete[] this->seats_per_row;
 	}
 
+	Venue& operator=(const Venue& ven) {
+		if (this->name != nullptr)
+			delete[] this->name;
+		this->name = new char[strlen(ven.name) + 1];
+		strcpy_s(this->name, strlen(ven.name) + 1, ven.name);
+
+		this->maxSeats = ven.maxSeats;
+
+		this->rows = ven.rows;
+
+		this->seats_per_row = new int[ven.rows + 1];
+		for (int i = 0; i < ven.rows; i++) {
+			this->seats_per_row[i] = ven.seats_per_row[i];
+		}
+
+		return *this;
+	}
+
 	friend ostream& operator<<(ostream& console, Venue& s);
 
 	friend istream& operator>>(istream& console, Venue& v);

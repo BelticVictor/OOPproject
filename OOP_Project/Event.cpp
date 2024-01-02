@@ -139,6 +139,15 @@ public:
 			return true;
 	}
 
+	Event& operator=(const Event& even) {
+		this->name = even.name;
+		this->date = even.date;
+		this->start_time = even.start_time;
+		this->finish_time = even.finish_time;
+
+		return *this;
+	}
+
 	friend ostream& operator<<(ostream& console, Event& s);
 	friend istream& operator>>(istream& console, Event& s);
 };
