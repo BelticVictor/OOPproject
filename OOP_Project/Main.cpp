@@ -1,5 +1,6 @@
 #include <iostream>
 #include <string>
+#include <fstream>
 using namespace std;
 #include "Event.cpp"
 #include "Venue.cpp"
@@ -125,6 +126,8 @@ istream& operator>>(istream& console, Ticket_Manager& Tix) {
     return console;
 }
 
+
+
 int Ticket::tickets_bought = 0;
 
 int main() {
@@ -149,10 +152,23 @@ int main() {
 
     if (stop == 0) {
 
+        ofstream data("data.txt", ios::ate);
+
+        if (!data.is_open()) {
+            cout << endl << "********** NU s-a deschis fisierul ****************";
+        }
+        else {
+            Ticket_Manager ticket;
+            int type;
+            int num;
+            data >> ticket;
+            data >> type;
+            data >> num;
+            ticket.generateTickets(type, num);
+            cout << ticket;
+        }
     }
     else {
-
-        stop = 1; //while testing the menu
         while (stop != 0) {
             cout << endl << "Input 0 to exit the program";
             cout << endl << "Input 1 to display data";
