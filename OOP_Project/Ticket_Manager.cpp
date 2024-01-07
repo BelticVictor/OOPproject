@@ -7,27 +7,16 @@ using namespace std;
 #include "Event.cpp"
 #include "Ticket.cpp"
 
-class Ticket_Manager:Venue,Event,Ticket { //has all the data for a specified eveniment
-	Venue Location;
-	Event event;
+class Ticket_Manager:public Venue,public Event,public Ticket { //has all the data for a specified eveniment
 	Ticket* tickets=nullptr;
 	int counter = 0;
 
 public:
 	//constructor
-	Ticket_Manager() {}
 
-	Ticket_Manager(const Venue& _Location, const Event& event) : Location(_Location), event(event) {}
+	Ticket_Manager():Venue(),Event() {}
 
-	//setters
-
-	void set_location(Venue loc) {
-		this->Location = loc;
-	}
-
-	void set_event(Event eve) {
-		this->event = eve;
-	}
+	Ticket_Manager(const char* _name, int _maxSeats, int _rows, const int* _seats_per_row, string name, string start_time, string finish_time, string date):Venue(_name,_maxSeats,_rows,_seats_per_row), Event(name,start_time,finish_time,date) {}
 
 	//generic methods
 
@@ -68,7 +57,7 @@ public:
 	}
 
 	bool checkTicketOverflow() {
-		if (this->counter > this->Location.get_maxSeats())
+		if (this->counter > this->get_maxSeats())
 			return true;  //there is an overflow
 		else
 			return false;
@@ -92,17 +81,28 @@ public:
 			return 0;
 	}
 
-	//Ticket_Manager& operator=(const Ticket_Manager& tix) {
-	//	this->Location = tix.Location;
-	//	this->event = tix.event;
+	Ticket_Manager& operator=(const Ticket_Manager& tix) {
+		if (this->VenueName != nullptr)
+			delete[] this->VenueName;
+		this->VenueName = new char[strlen(tix.VenueName) + 1];
+		strcpy_s(this->VenueName, strlen(tix.VenueName) + 1, tix.VenueName);
 
-	//	if(counter>0)
-	//		for (int i = 0; i < this->counter; i++) {
-	//			this->tickets[i] = tix.tickets[i];
-	//		}
+		this->maxSeats = tix.maxSeats;
 
-	//	return *this;
-	//}
+		this->rows = tix.rows;
+
+		this->seats_per_row = new int[tix.rows + 1];
+		for (int i = 0; i < tix.rows; i++) {
+			this->seats_per_row[i] = tix.seats_per_row[i];
+		}
+
+		this->EventName = tix.EventName;
+		this->date = tix.date;
+		this->start_time = tix.start_time;
+		this->finish_time = tix.finish_time;
+
+		return *this;
+	}
 
 	friend ostream& operator<<(ostream& console, Ticket_Manager& s);
 	//set it up so that seats create a matrix of seats which people can pick out of

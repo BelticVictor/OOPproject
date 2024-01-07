@@ -6,6 +6,7 @@ using namespace std;
 
 class Ticket
 {
+protected:
 	const int ID;
 	int type; // 0 for normal, 1 for VIP,2+ for smthg else if needed
 	static int tickets_bought;
