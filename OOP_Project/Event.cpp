@@ -1,7 +1,6 @@
 #pragma once
 #include <iostream>
 #include <string>
-class Ticket_Manager;
 using namespace std;
 
 class Event {
@@ -152,5 +151,4 @@ public:
 
 	friend ostream& operator<<(ostream& console, Event& s);
 	friend istream& operator>>(istream& console, Event& s);
-	friend istream& operator>>(istream& console, Ticket_Manager& s);
 };
