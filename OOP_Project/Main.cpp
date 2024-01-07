@@ -115,12 +115,12 @@ ostream& operator<<(ostream& console, Ticket_Manager& t) {
 istream& operator>>(istream& console, Ticket_Manager& Tix) {
     console >> Tix.Location;
     console >> Tix.event;
-    int quan, type;
+   /* int quan, type; tickets are generated manually
     cout << endl << "Enter the type of tickets you want to buy (0 for Normal, 1 for VIP): ";
     cin >> type;
     cout << endl << "Enter the quantity of tickets you want to buy): ";
     cin >> quan;
-    Tix.generateTickets(type, quan);
+    Tix.generateTickets(type, quan);*/
 
     cout << endl;
     return console;
@@ -152,10 +152,10 @@ int main() {
 
     if (stop == 0) {
 
-        ofstream data("data.txt", ios::ate);
+        ifstream data("data.txt", ios::ate);
 
         if (!data.is_open()) {
-            cout << endl << "********** NU s-a deschis fisierul ****************";
+            cout << endl << "!!!!!!!!!!!!! The file did not open !!!!!!!!!!!!!";
         }
         else {
             Ticket_Manager ticket;
