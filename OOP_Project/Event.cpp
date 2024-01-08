@@ -149,6 +149,32 @@ public:
 		return *this;
 	}
 
-	friend ostream& operator<<(ostream& console, Event& s);
-	friend istream& operator>>(istream& console, Event& s);
+	friend ostream& operator<<(ostream& console, Event& e) {
+		console << endl << "The event is a " << e.get_eventname();
+
+		console << endl << "It will start at " << e.get_start_time() << " and end at " << e.get_finish_time();
+
+		console << endl << "The duration is " << e.duration() << " minutes";
+
+		console << endl << "It will take place on " << e.get_date();
+
+		cout << endl;
+		return console;
+	}
+
+	friend istream& operator>>(istream& console, Event& e) {
+		cout << endl << "Input event name: ";
+		console >> e.EventName;
+
+		cout << endl << "Input start time: ";
+		console >> e.start_time;
+
+		cout << endl << "Input finish time: ";
+		console >> e.finish_time;
+
+		cout << endl << "The date is: ";
+		console >> e.date;
+
+		return console;
+	}
 };

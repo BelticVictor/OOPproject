@@ -151,8 +151,44 @@ public:
 		return *this;
 	}
 
-	friend ostream& operator<<(ostream& console, Venue& s);
+	friend ostream& operator<<(ostream& console, Venue& v) { //realised its friended so i dont have to call getters, but im too scared to change it at this point
+		console << endl << "Venue name is " << v.get_venuename();
 
-	friend istream& operator>>(istream& console, Venue& v);
+		console << endl << "The maximum capacity is " << v.get_maxSeats();
+
+		console << endl << "There are " << v.get_rows() << " rows";
+
+		for (int i = 0; i < v.get_rows(); i++)
+			console << endl << "The number of seats on row " << i + 1 << " is " << v[i];
+
+		cout << endl;
+		return console;
+	}
+
+	friend istream& operator>>(istream& console, Venue& v) {
+		string buffer;
+		cout << "Input Venue name: ";
+		console >> buffer;
+		if (v.VenueName != nullptr)
+		{
+			delete[] v.VenueName;
+		}
+		v.VenueName = new char[buffer.length() + 1];
+		strcpy_s(v.VenueName, buffer.length() + 1, buffer.c_str());
+
+		cout << endl << "Input the Venue's maximum capacity: ";
+		console >> v.maxSeats;
+
+		cout << endl << "Input the amount of rows: ";
+		console >> v.rows;
+
+		v.seats_per_row = new int[v.rows + 1];
+		for (int i = 0; i < v.get_rows(); i++) {
+			cout << endl << "The number of seats on row " << i + 1 << " is ";
+			console >> v.seats_per_row[i];
+		}
+
+		return console;
+	}
 };
 

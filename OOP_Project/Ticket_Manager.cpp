@@ -7,7 +7,7 @@ using namespace std;
 #include "Event.cpp"
 #include "Ticket.cpp"
 
-class Ticket_Manager:public Venue,public Event,public Ticket { //has all the data for a specified eveniment
+class Ticket_Manager:public Venue,public Event{ //has all the data for a specified eveniment
 	Ticket* tickets=nullptr;
 	int counter = 0;
 
@@ -103,10 +103,87 @@ public:
 
 		return *this;
 	}
-
-	friend ostream& operator<<(ostream& console, Ticket_Manager& s);
 	//set it up so that seats create a matrix of seats which people can pick out of
 	//take example and add method so it shows up the matrix of all seats when selecting a specific seat
 	
-	friend istream& operator>>(istream& console, Ticket_Manager& s);
+
+	friend ostream& operator<<(ostream& console, Ticket_Manager& t) {
+		//******************venue
+		console << endl << "Venue name is " << t.get_venuename();
+
+		console << endl << "The maximum capacity is " << t.get_maxSeats();
+
+		console << endl << "There are " << t.get_rows() << " rows";
+
+		for (int i = 0; i < t.get_rows(); i++)
+			console << endl << "The number of seats on row " << i + 1 << " is " << t[i];
+		//*********************event
+		console << endl << "The event is a " << t.get_eventname();
+
+		console << endl << "It will start at " << t.get_start_time() << " and end at " << t.get_finish_time();
+
+		console << endl << "The duration is " << t.duration() << " minutes";
+
+		console << endl << "It will take place on " << t.get_date();
+
+		if (t.counter > 0)
+			for (int i = 0; i < t.counter; i++)
+				cout << endl << t.tickets[i];
+
+		console << endl << "The number of tickets sold in this eveniment is: " << t.counter;
+
+		console << endl << endl << "The total number of tickets sold is " << t.tickets->get_tickets_bought() << endl;
+
+		cout << endl;
+		return console;
+	}
+
+	friend istream& operator>>(istream& console, Ticket_Manager& Tix) {
+		//*****************venue
+		string buffer;
+		cout << "Input Venue name: ";
+		console >> buffer;
+		if (Tix.VenueName != nullptr)
+		{
+			delete[] Tix.VenueName;
+		}
+		Tix.VenueName = new char[buffer.length() + 1];
+		strcpy_s(Tix.VenueName, buffer.length() + 1, buffer.c_str());
+
+		cout << endl << "Input the Venue's maximum capacity: ";
+		console >> Tix.maxSeats;
+
+		cout << endl << "Input the amount of rows: ";
+		console >> Tix.rows;
+
+		Tix.seats_per_row = new int[Tix.rows + 1];
+		for (int i = 0; i < Tix.get_rows(); i++) {
+			cout << endl << "The number of seats on row " << i + 1 << " is ";
+			console >> Tix.seats_per_row[i];
+		}
+		//*****************event
+
+		cout << endl << "Input event name: ";
+		console >> Tix.EventName;
+
+		cout << endl << "Input start time: ";
+		console >> Tix.start_time;
+
+		cout << endl << "Input finish time: ";
+		console >> Tix.finish_time;
+
+		cout << endl << "The date is: ";
+		console >> Tix.date;
+
+		/* int quan, type; tickets are generated manually
+		 cout << endl << "Enter the type of tickets you want to buy (0 for Normal, 1 for VIP): ";
+		 cin >> type;
+		 cout << endl << "Enter the quantity of tickets you want to buy): ";
+		 cin >> quan;
+		 Tix.generateTickets(type, quan);*/
+
+		cout << endl;
+		return console;
+	}
+
 };

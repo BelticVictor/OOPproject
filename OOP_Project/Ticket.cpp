@@ -149,6 +149,21 @@ public:
 		return *this;
 	}*/
 
-	friend ostream& operator<<(ostream& console, Ticket& s);
-	friend istream& operator>>(istream& console, Ticket& s);
+	friend ostream& operator<<(ostream& console, Ticket& t) {
+		console << endl << "The ticket ID is " << t.get_ID();
+
+		console << endl << "It's type is " << t.get_type();
+
+		//console << endl << "The total number of tickets bought is " << t.get_tickets_bought() - 1;
+
+		cout << endl;
+		return console;
+	}
+
+	friend istream& operator>>(istream& console, Ticket& t) {
+		cout << "Input ticket type(0 for Normal, 1 for VIP): ";
+		cin >> t.type;
+
+		return console;
+	}
 };
