@@ -1,5 +1,6 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 #include <string>
 using namespace std;
 
@@ -103,9 +104,40 @@ public:
 
 		return *this;
 	}
-	//set it up so that seats create a matrix of seats which people can pick out of
-	//take example and add method so it shows up the matrix of all seats when selecting a specific seat
 	
+	virtual void readFromFile(std::ifstream& inFile) {
+		string buffer;
+		inFile >> buffer;
+		if (VenueName != nullptr)
+		{
+			delete[] VenueName;
+		}
+		VenueName = new char[buffer.length() + 1];
+		strcpy_s(VenueName, buffer.length() + 1, buffer.c_str());
+
+		inFile >> maxSeats;
+
+		inFile >> rows;
+
+		seats_per_row = new int[rows + 1];
+		for (int i = 0; i < rows; i++) {
+			inFile >> seats_per_row[i];
+		}
+
+		inFile >> EventName;
+
+		inFile >> start_time;
+
+		inFile >> finish_time;
+
+		inFile >> date;
+
+		 int quan, type;
+		 inFile >> type;
+		 inFile >> quan;
+		 generateTickets(type, quan);
+	}
+
 
 	friend ostream& operator<<(ostream& console, Ticket_Manager& t) {
 		//******************venue
@@ -132,7 +164,7 @@ public:
 
 		console << endl << "The number of tickets sold in this eveniment is: " << t.counter;
 
-		console << endl << endl << "The total number of tickets sold is " << t.tickets->get_tickets_bought() << endl;
+		//console << endl << endl << "The total number of tickets sold is " << t.tickets->get_tickets_bought() << endl;
 
 		cout << endl;
 		return console;
@@ -166,13 +198,13 @@ public:
 		cout << endl << "Input event name: ";
 		console >> Tix.EventName;
 
-		cout << endl << "Input start time: ";
+		cout << endl << "Input start time (hh:mm format): ";
 		console >> Tix.start_time;
 
-		cout << endl << "Input finish time: ";
+		cout << endl << "Input finish time (hh:mm): ";
 		console >> Tix.finish_time;
 
-		cout << endl << "The date is: ";
+		cout << endl << "The date is (yyyy-dd-mm format): ";
 		console >> Tix.date;
 
 		/* int quan, type; tickets are generated manually

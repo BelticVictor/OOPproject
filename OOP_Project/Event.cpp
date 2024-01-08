@@ -17,7 +17,7 @@ public:
 		this->EventName = "Event";
 		this->start_time = "00:00";
 		this->finish_time = "00:00";
-		this->date = "01-01-2003";
+		this->date = "2003-01-01";
 	}
 
 	//constructor
@@ -166,13 +166,13 @@ public:
 		cout << endl << "Input event name: ";
 		console >> e.EventName;
 
-		cout << endl << "Input start time: ";
+		cout << endl << "Input start time (hh:mm format): ";
 		console >> e.start_time;
 
-		cout << endl << "Input finish time: ";
+		cout << endl << "Input finish time (hh:mm format): ";
 		console >> e.finish_time;
 
-		cout << endl << "The date is: ";
+		cout << endl << "The date is (yyyy-dd-mm format): ";
 		console >> e.date;
 
 		return console;
