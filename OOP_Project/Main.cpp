@@ -7,9 +7,8 @@ using namespace std;
 #include "Ticket.cpp"
 #include "Ticket_Manager.cpp"
 
-int Ticket::tickets_bought = 0;
-
-//make it so it saves all the info in a file at the end. read the file at the start. the file contains: how many events there are, and the info data
+int Ticket::normal_tickets_bought = 0;
+int Ticket::vip_tickets_bought = 0;
 
 int main() {
     int EventCount=0;
@@ -17,6 +16,20 @@ int main() {
 
     Ticket_Manager* ticketM=nullptr; //every Eveniment will be stored here
     Ticket_Manager* copyTix=nullptr; //surprise tool for later
+
+
+    //the binary file doesnt look fine for some reason so it cant read from it, not my fault ig 
+
+   /* ifstream save("save.bin", ios::binary);
+    if (save.is_open()) {
+        save.read((char*)EventCount,sizeof(int));
+        ticketM = new Ticket_Manager[EventCount - 1];
+        for (int i = 0; i < EventCount; i++)
+            ticketM[i].readBinFile(save);
+    }
+    else
+        cout << "Couldnt open the save file";
+    save.close();*/
 
     //!!!!!!!!!!!!!!!! Uncomment for testing.
 
@@ -26,12 +39,12 @@ int main() {
 
     ticketM = new Ticket_Manager[2];
 
-    
-    ticketM[0] = tix;
     EventCount++;
+    ticketM[EventCount-1] = tix;
 
-    ticketM[1] = tix2;
     EventCount++;
+    ticketM[EventCount - 1] = tix2;
+
 
     ticketM[0].generateTickets(0, 2);
     ticketM[0].generateTickets(1, 3);
@@ -55,6 +68,7 @@ int main() {
                 ticketM[0].readFromFile(data);
                 cout << ticketM[0];
             }
+            data.close();
         }
         else
         {
@@ -209,5 +223,16 @@ int main() {
         }
     }
     
+    ofstream save2("save.bin", ios::binary | ios::ate);
+    if (save2.is_open()) {
+        save2.write((char*)&EventCount, sizeof(int));
+        for (int i = 0; i < EventCount; i++)
+            ticketM[i].writeBinFile(save2);
+    }
+    else
+        cout << "Couldnt open the save file";
+    save2.close();
     delete[] ticketM;
+
+    return 0;
 }

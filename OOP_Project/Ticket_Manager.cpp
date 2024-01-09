@@ -75,7 +75,7 @@ public:
 
 	static double totalProfit(Ticket_Manager t) {
 		if (t.counter > 0 && t.tickets->get_price() > 0) {
-			double profit = t.tickets->get_tickets_bought() * t.tickets->get_price();
+			double profit = (t.tickets->get_normal_tickets_bought() + t.tickets->get_vip_tickets_bought()) * t.tickets->get_price();
 			return profit;
 		}
 		else
@@ -105,7 +105,7 @@ public:
 		return *this;
 	}
 	
-	virtual void readFromFile(std::ifstream& inFile) {
+	virtual void readFromFile(ifstream& inFile) {
 		string buffer;
 		inFile >> buffer;
 		if (VenueName != nullptr)
@@ -138,6 +138,101 @@ public:
 		 generateTickets(type, quan);
 	}
 
+	void readBinFile(ifstream& BinFile) {
+		//Venue name, name size , max seats, rows,seats per row, event name, start_time, finish_time, date, quan, type
+		int nameSize;
+		nameSize = strlen(VenueName);
+		BinFile.read((char*)nameSize, sizeof(int));
+		delete[] VenueName;
+		VenueName = new char[nameSize];
+		BinFile.read((char*)VenueName, sizeof(char) * nameSize);
+
+		BinFile.read((char*)maxSeats, sizeof(int));
+
+		BinFile.read((char*)rows, sizeof(int));
+
+		for (int i = 0; i < rows; i++) 
+			BinFile.read((char*)seats_per_row[i], sizeof(int));
+
+		char* buffer;
+		int bufferSize=0;
+
+		BinFile.read((char*)bufferSize, sizeof(int));
+		buffer = new char[bufferSize];
+		BinFile.read((char*)buffer, sizeof(char)*bufferSize);
+		EventName = buffer;
+		delete[] buffer;
+
+		BinFile.read((char*)bufferSize, sizeof(int));
+		buffer = new char[bufferSize];
+		BinFile.read((char*)buffer, sizeof(char) * bufferSize);
+		start_time = buffer;
+		delete[] buffer;
+
+		BinFile.read((char*)bufferSize, sizeof(int));
+		buffer = new char[bufferSize];
+		BinFile.read((char*)buffer, sizeof(char) * bufferSize);
+		finish_time = buffer;
+		delete[] buffer;
+
+		BinFile.read((char*)bufferSize, sizeof(int));
+		buffer = new char[bufferSize];
+		BinFile.read((char*)buffer, sizeof(char) * bufferSize);
+		date = buffer;
+		delete[] buffer;
+
+		int quan=0;
+		BinFile.read((char*)quan, sizeof(int));
+		int type=0;
+		BinFile.read((char*)type, sizeof(int));
+		generateTickets(type, quan);
+
+		BinFile.read((char*)quan, sizeof(int));
+		BinFile.read((char*)type, sizeof(int));
+		generateTickets(type, quan);
+	}
+
+	void writeBinFile(ofstream& BinFile) {
+		int nameSize=strlen(VenueName);
+		BinFile.write((char*)&nameSize, sizeof(int));
+
+		BinFile.write((char*)&VenueName, sizeof(char) * strlen(VenueName + 1));
+
+		BinFile.write((char*)&maxSeats, sizeof(int));
+
+		BinFile.write((char*)&rows, sizeof(int));
+
+		for (int i = 0; i < rows; i++)
+			BinFile.write((char*)&seats_per_row[i], sizeof(int));
+
+		int bufferSize;
+
+		bufferSize = EventName.length();
+		BinFile.write((char*)&bufferSize, sizeof(int));
+		BinFile.write(EventName.c_str(), bufferSize);
+
+		bufferSize = EventName.length();
+		BinFile.write((char*)&bufferSize, sizeof(int));
+		BinFile.write(start_time.c_str() , bufferSize);
+
+		bufferSize = EventName.length();
+		BinFile.write((char*)&bufferSize, sizeof(int));
+		BinFile.write(finish_time.c_str(), bufferSize);
+
+		bufferSize = EventName.length();
+		BinFile.write((char*)&bufferSize, sizeof(int));
+		BinFile.write(date.c_str(), bufferSize);
+
+		int num = tickets->get_normal_tickets_bought();
+		BinFile.write((char*)&num, sizeof(int));
+		int type = 0;
+		BinFile.write((char*)&type, sizeof(int));
+
+		num = tickets->get_vip_tickets_bought();
+		BinFile.write((char*)&num, sizeof(int));
+		type = 1;
+		BinFile.write((char*)&type, sizeof(int));
+	}
 
 	friend ostream& operator<<(ostream& console, Ticket_Manager& t) {
 		//******************venue

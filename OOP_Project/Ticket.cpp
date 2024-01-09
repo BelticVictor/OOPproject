@@ -9,7 +9,8 @@ class Ticket
 protected:
 	const int ID;
 	int type; // 0 for normal, 1 for VIP,2+ for smthg else if needed
-	static int tickets_bought;
+	static int normal_tickets_bought;
+	static int vip_tickets_bought;
 	int price;
 
 public:
@@ -19,7 +20,6 @@ public:
 	Ticket() : ID(rand()) {
 		this->price = 0;
 		this->type = 0;
-		tickets_bought++;
 	}
 
 	//constructor
@@ -28,20 +28,28 @@ public:
 		this->type = type;
 		switch (this->type) {
 		case(0):
+			normal_tickets_bought++;
 			this->price = 10;
 			break;
 		case(1):
+			vip_tickets_bought++;
 			this->price = 15;
 			break;
 		}
-		tickets_bought++;
 	}
 
 	//copy constructor
 
 	Ticket(const Ticket& copy) : ID(copy.ID),price(copy.price) {
 		this->type = copy.type;
-		tickets_bought++;
+		switch (this->type) {
+		case(0):
+			normal_tickets_bought++;
+			break;
+		case(1):
+			vip_tickets_bought++;
+			break;
+		}
 	}
 
 	//getter
@@ -62,7 +70,8 @@ public:
 
 	int get_ID() { return this->ID; }
 
-	int get_tickets_bought(){ return tickets_bought; }
+	int get_normal_tickets_bought(){ return normal_tickets_bought; }
+	int get_vip_tickets_bought() { return vip_tickets_bought; }
 
 	//setter
 
@@ -81,9 +90,17 @@ public:
 			throw invalid_argument("Invalid type");
 	}
 
-	void set_tickets_bought(int quantity) {
+	void set_normal_tickets_bought(int quantity) {
 		if (quantity > 0) {
-			this->tickets_bought = quantity;
+			this->normal_tickets_bought = quantity;
+		}
+		else
+			throw invalid_argument("Invalid number of tickets bought");
+	}
+
+	void set_vip_tickets_bought(int quantity) {
+		if (quantity > 0) {
+			this->vip_tickets_bought = quantity;
 		}
 		else
 			throw invalid_argument("Invalid number of tickets bought");
@@ -102,8 +119,12 @@ public:
 		}
 	}
 
-	static void IncreaseTicketsBought(int amount) { 
-		tickets_bought += amount;
+	static void IncreaseNormalTicketsBought(int amount) { 
+		normal_tickets_bought += amount;
+	}
+
+	static void IncreaseVipTicketsBought(int amount) {
+		vip_tickets_bought += amount;
 	}
 
 	int returnType() {
@@ -114,23 +135,30 @@ public:
 
 	Ticket operator++()
 	{
-		this->tickets_bought++;
+		this->normal_tickets_bought++;
 		return *this;
 	}
 
 	Ticket operator++(int)
 	{
 		Ticket copy = *this;
-		this->tickets_bought++;
+		this->normal_tickets_bought++;
 		return copy;
 	}
 
 	Ticket operator--()
 	{
-		this->tickets_bought--;
+		this->normal_tickets_bought--;
 		return *this;
 	}
 
+	Ticket operator--(int)
+	{
+		Ticket copy = *this;
+		this->normal_tickets_bought--;
+		return copy;
+	}
+	
 	bool operator!() {
 		switch (this->type) {
 		case(0):
